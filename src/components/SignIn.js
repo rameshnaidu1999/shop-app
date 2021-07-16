@@ -44,7 +44,7 @@ function SignIn() {
                     onChange={(e) => setPassword(e.target.value)}
                   />
                 </FormGroup>
-                <Button squared block onSubmit={login}>
+                <Button squared block onClick={login}>
                   Sign In
                 </Button>
               </Form>

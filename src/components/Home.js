@@ -1,11 +1,20 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Carousel } from "react-bootstrap";
 import Laptop from "./assets/Laptops.jpg";
 import Phone from "./assets/phone.jpg";
 import Television from "./assets/Television.jpg";
 import Products from "./Products";
+import Axios from "axios";
 
 function Home() {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    Axios.get("https://fakestoreapi.com/products").then((res) => {
+      setData(res.data);
+      console.log(res.data);
+    });
+  }, []);
   return (
     <div className="home">
       <div className="container">
@@ -33,43 +42,17 @@ function Home() {
             <p class="text-white m-0">Relative Products</p>
           </div>
         </div>
+
         <div className="row">
-          <div className="col-lg-4 col-md-10 ">
+          {data.map((item) => (
             <Products
-              id="4"
-              title="Samsung Telephone"
-              price={9499}
-              image="https://images.pexels.com/photos/47261/pexels-photo-47261.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-              desc="This is a media card. You cection to describe"
+              id={item.id}
+              title={item.title}
+              price={item.price}
+              image={item.image}
+              desc={item.description}
             />
-          </div>
-          <div className="col-lg-4 col-md-10 ">
-            <Products
-              id="5"
-              title="MacBook Air Pro"
-              price={149499}
-              image="https://images.pexels.com/photos/221011/pexels-photo-221011.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-              desc="This is a media card. You cection to describe"
-            />{" "}
-          </div>
-          <div className="col-lg-4 col-md-10 ">
-            <Products
-              id="6"
-              title="Samsung Telephone"
-              price={39499}
-              image="https://images.pexels.com/photos/7974/pexels-photo.jpg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-              desc="This is a media card. You cection to describe"
-            />{" "}
-          </div>
-          <div className="col-lg-4 col-md-10 ">
-            <Products
-              id="7"
-              title="TV ( 43 Inch )"
-              price={49499}
-              image="https://images.pexels.com/photos/1779487/pexels-photo-1779487.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-              desc="This is a media card. You cection to describe"
-            />
-          </div>
+          ))}
         </div>
       </div>
     </div>

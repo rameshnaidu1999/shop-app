@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import { Navbar, NavDropdown, Nav, Button } from "react-bootstrap";
+import { Navbar, NavDropdown, Nav } from "react-bootstrap";
+import { Button } from "shards-react";
 import { Link } from "react-router-dom";
 import { useStateValue } from "../StateProvider";
 import { auth } from "./config/firebase";
+import { Avatar } from "@material-ui/core";
 
 function Header() {
   const [{ basket, user }, dispatch] = useStateValue();
@@ -14,14 +16,8 @@ function Header() {
     }
   };
   return (
-    <div className="header">
-      <Navbar
-        collapseOnSelect
-        expand="lg"
-        bg="dark"
-        variant="dark"
-        fixed="sticky"
-      >
+    <div className="header mb-5">
+      <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" fixed="top">
         <div className="container">
           <Navbar.Brand href="/">Eshop Pro</Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -32,24 +28,25 @@ function Header() {
               </Nav.Link>
 
               <Nav.Link>
-                <Link to="/productId"> Products </Link>
-              </Nav.Link>
-
-              <Nav.Link>
                 <Link to="/cart"> Cart({basket?.length}) </Link>
               </Nav.Link>
+
               {!user ? (
                 <div>
                   <Link to="/signup">
-                    <Button variant="dark">Sign up</Button>
+                    <Button squared theme="outline-primary">
+                      Sign up
+                    </Button>
                   </Link>
-
+                  {"  "} {"  "}
                   <Link to="/signin">
-                    <Button variant="dark">Sign In</Button>
+                    <Button squared theme="outline-success">
+                      Sign In
+                    </Button>
                   </Link>
                 </div>
               ) : (
-                <NavDropdown title="User" id="collasible-nav-dropdown">
+                <NavDropdown title={user?.email} id="collasible-nav-dropdown">
                   <NavDropdown.Item href="#action/3.1">
                     Settings
                   </NavDropdown.Item>

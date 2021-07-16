@@ -54,7 +54,7 @@ const App = () => {
           <Route path="/signup">
             <SignUp />
           </Route>
-          <Route path="/productId">
+          <Route path="/products/:id">
             <SingleProduct />
           </Route>
           <Route path="/cart">
